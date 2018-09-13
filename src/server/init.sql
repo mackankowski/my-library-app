@@ -175,3 +175,64 @@ INSERT INTO Orders
   (order_id, status_id, storage_ids)
 VALUES
   (5, 4, '9' )
+
+USE Storage_DB;
+
+INSERT INTO Author
+  (author_id, first_name, surname)
+VALUES
+  (1, 'Tomasz', 'Jankowski')
+INSERT INTO Author
+  (author_id, first_name, surname)
+VALUES
+  (2, 'Robert', 'Gonera')
+INSERT INTO Author
+  (author_id, first_name, surname)
+VALUES
+  (3, 'Julia', 'Jakubowska')
+INSERT INTO Author
+  (author_id, first_name, surname)
+VALUES
+  (4, 'Ewa', 'Adamska')
+INSERT INTO Author
+  (author_id, first_name, surname)
+VALUES
+  (5, 'Alicja', 'Czarodziejska')
+
+
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (1, 1);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (2, 1);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (3, 2);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (4, 2);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (5, 3);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (6, 3);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (7, 4);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (8, 4);
+INSERT INTO Storage
+  (storage_id, author_id)
+VALUES
+  (9, 5);
