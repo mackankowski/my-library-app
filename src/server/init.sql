@@ -1,7 +1,7 @@
 /* DROP BEFORE PROCEEDING */
 
 USE master;
-DROP DATABASE Customers_DB, Orders_DB, Storage_DB;
+DROP DATABASE IF EXISTS Customers_DB, Orders_DB, Storage_DB;
 GO
 
 /* CREATE DATABASES & TABLES */
@@ -175,4 +175,3 @@ INSERT INTO Orders
   (order_id, status_id, storage_ids)
 VALUES
   (5, 4, '9' )
-
