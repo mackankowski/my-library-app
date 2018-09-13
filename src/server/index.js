@@ -1,11 +1,12 @@
-var express = require('express');
+const express = require('express');
 const path = require('path');
+const serviceBusConnStr = require('./secret');
 
 var app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/api/sql/connect', function(req, res) {
+app.get('/azure/sql/connect', function(req, res) {
   var sql = require('mssql');
   var config = {
     user: 'sa',
@@ -20,5 +21,18 @@ app.get('/api/sql/connect', function(req, res) {
     }
   );
 });
+
+app.get('/azure/servicebus/connect', function(req, res) {
+  var azure = require('azure');
+  var serviceBusService = azure.createServiceBusService(serviceBusConnStr);
+  // serviceBusService.createTopicIfNotExists('MyTopic', function(error) {
+  //   if (!error) {
+  //     console.log('Topic created or exists.');
+  //   } else {
+  //     console.log(error);
+  //   }
+  // });
+});
+
 const port = 3001;
 app.listen(port, () => console.log(`Listening on port ${port}!`));

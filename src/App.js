@@ -12,11 +12,17 @@ import { StorageContainer } from './containers/StorageContainer';
 
 class App extends PureComponent {
   componentDidMount() {
-    this.dbConnect();
+    this.sqlConnect();
+    this.serviceBusConnect();
   }
-  dbConnect = () => {
-    fetch('/api/sql/connect');
+  sqlConnect = () => {
+    fetch('/azure/sql/connect');
   };
+
+  serviceBusConnect = () => {
+    fetch('/azure/servicebus/connect');
+  };
+
   render() {
     return (
       <Router>
