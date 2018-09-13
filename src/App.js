@@ -1,19 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { PureComponent } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 import './App.css';
+import { CustomersComponent } from './components/CustomersComponent';
 
-class App extends Component {
+class App extends PureComponent {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div>
+          <h1>My Library app</h1>
+          <ul>
+            <li>
+              <Link to="/customers">Customers</Link>
+            </li>
+          </ul>
+
+          <hr />
+          <Redirect from="/" to="customers" />
+          <Route path="/customers" component={CustomersComponent} />
+        </div>
+      </Router>
     );
   }
 }
