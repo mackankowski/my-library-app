@@ -6,9 +6,17 @@ import {
   Redirect
 } from 'react-router-dom';
 import './App.css';
-import { CustomersComponent } from './components/CustomersComponent';
+import { CustomersContainer } from './containers/CustomersContainer';
+import { OrdersContainer } from './containers/OrdersContainer';
+import { StorageContainer } from './containers/StorageContainer';
 
 class App extends PureComponent {
+  componentDidMount() {
+    this.dbConnect();
+  }
+  dbConnect = () => {
+    fetch('/api/sql/connect');
+  };
   render() {
     return (
       <Router>
@@ -18,11 +26,19 @@ class App extends PureComponent {
             <li>
               <Link to="/customers">Customers</Link>
             </li>
+            <li>
+              <Link to="/orders">Orders</Link>
+            </li>
+            <li>
+              <Link to="/storage">Storage</Link>
+            </li>
           </ul>
 
           <hr />
           <Redirect from="/" to="customers" />
-          <Route path="/customers" component={CustomersComponent} />
+          <Route path="/customers" component={CustomersContainer} />
+          <Route path="/orders" component={OrdersContainer} />
+          <Route path="/storage" component={StorageContainer} />
         </div>
       </Router>
     );
