@@ -8,20 +8,21 @@ This project demonstrate Service Bus and Publish / Subscribe pattern usage.
 - Front End: `React`, `React-Router`, `Redux`, `Redux-Saga`,
 - Database: `MS Server` (MSSQL)
 - Service Bus with Sub/Pub pattern (`Azure`)
-- `Webpack` as automation Front End tool \*
-- Containerized application using `Docker` \*
+- `Webpack` as module builder for JavaScript \*
+- Containerized app using `Docker` \*
 
-\* Not available yet
+\* _Not available yet_
 
 ## Topology
 
-- Distributed system with 3 microservices with dedicated databases
-- Service Bus (topics) and Pub/Sub pattern implementation in Azure
+- Distributed system with 3 microservices for Customers, Orders and Storage
+- Dedicated databases for each service
+- Service Bus (topics) and Pub/Sub pattern implementation using Azure
 
-## Scripts
+## Start the app
 
 In the project directory, you can run:
 
 ### `npm dev`
 
-Express.js server and development app will be launched in browser
+Express.js server and development app will be launched in browser.
