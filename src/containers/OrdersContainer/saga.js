@@ -1,4 +1,4 @@
-import { select, takeLatest } from 'redux-saga/effects';
+import { /*select,*/ takeLatest } from 'redux-saga/effects';
 // import { makeSelectOrders } from './selectors';
 // import { getOrdersList } from './actions';
 

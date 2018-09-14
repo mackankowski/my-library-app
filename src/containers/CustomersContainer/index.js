@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import { messages } from '../../constants/messages';
 
 export class CustomersContainer extends Component {
-  state = { res: null };
+  state = { customers: null };
   componentDidMount() {
-    this.callApi('/sql/orders/orders/list').then(res =>
-      this.setState({ res: res.recordset })
-    );
+    fetch('/sql/orders/orders/list')
+      .then(res => res.json())
+      .then(res => this.setState({ customers: res.recordset }));
   }
-  callApi = async path => {
-    const res = await fetch(path);
-    return await res.json();
-  };
   render() {
-    const { res } = this.state;
+    const { customers } = this.state;
     const { confirmText } = messages;
     return (
       <div>
@@ -26,8 +22,8 @@ export class CustomersContainer extends Component {
               <th>customer_first_name</th>
               <th>customer_surname</th>
             </tr>
-            {res &&
-              res.map(i => {
+            {customers &&
+              customers.map(i => {
                 return (
                   <tr key={i.order_id}>
                     <td>{i.order_id}</td>

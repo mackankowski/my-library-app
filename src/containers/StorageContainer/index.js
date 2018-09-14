@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import { messages } from '../../constants/messages';
 
 export class StorageContainer extends Component {
-  state = { res: null };
+  state = { storage: null };
   componentDidMount() {
-    this.callApi('/sql/storage/storage/list').then(res =>
-      this.setState({ res: res.recordset })
-    );
+    fetch('/sql/storage/storage/list')
+      .then(res => res.json())
+      .then(res => this.setState({ storage: res.recordset }));
   }
-  callApi = async path => {
-    const res = await fetch(path);
-    return await res.json();
-  };
   render() {
-    const { res } = this.state;
+    const { storage } = this.state;
     const { confirmText } = messages;
     return (
       <div>
@@ -26,8 +22,8 @@ export class StorageContainer extends Component {
               <th>author_first_name</th>
               <th>author_surname</th>
             </tr>
-            {res &&
-              res.map(i => {
+            {storage &&
+              storage.map(i => {
                 return (
                   <tr key={i.storage_id}>
                     <td>{i.storage_id}</td>
