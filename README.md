@@ -1,4 +1,4 @@
-# The Library app
+# The Library App
 
 This project demonstrate Service Bus and Publish / Subscribe pattern usage.
 
@@ -11,12 +11,12 @@ This project demonstrate Service Bus and Publish / Subscribe pattern usage.
 - `Webpack` as automation Front End tool \*
 - Containerized application using `Docker` \*
 
-* Not available yet
+\* Not available yet
 
 ## Topology
 
 - Distributed system with 3 microservices with dedicated databases
--
+- Service Bus (topics) and Pub/Sub pattern implementation in Azure
 
 ## Scripts
 
