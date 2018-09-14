@@ -2,18 +2,25 @@ import React, { Component } from 'react';
 import { messages } from '../../constants/messages';
 
 export class CustomersContainer extends Component {
-  state = { customers: null };
+  state = {
+    customers: null,
+    customer_id: null,
+    storage_id: null
+  };
   componentDidMount() {
     fetch('/sql/orders/orders/list')
       .then(res => res.json())
       .then(res => this.setState({ customers: res.recordset }));
   }
+  createNewOrderEvent() {}
   render() {
-    const { customers } = this.state;
+    const { customers, customer_id, storage_id } = this.state;
     const { confirmText } = messages;
     return (
       <div>
         <h2>Customers</h2>
+        <p>customer_id: {customer_id}</p>
+        <p>storage_id: {storage_id}</p>
         <table>
           <tbody>
             <tr>
@@ -35,21 +42,31 @@ export class CustomersContainer extends Component {
               })}
           </tbody>
         </table>
-        <p>
-          Switch customer: <input type="number" placeholder="#customer_id" />
+        <p style={{ color: 'green' }}>
+          Set customer:{' '}
+          <input
+            onChange={e => this.setState({ customer_id: e.target.value })}
+            type="number"
+            placeholder="#customer_id"
+          />
+        </p>
+        <p style={{ color: 'green' }}>
+          Create new order:{' '}
+          <input
+            onChange={e => this.setState({ storage_id: e.target.value })}
+            type="number"
+            placeholder="#storage_id"
+          />
+        </p>
+        <p style={{ color: 'red' }}>
+          Check order status:{' '}
+          <input disabled type="number" placeholder="#order_id" />
           <button>{confirmText}</button>
         </p>
-        <p>
-          Create new order: <input type="number" placeholder="#storage_id" />
-          <button>{confirmText}</button>
-        </p>
-        <p>
-          Check order status: <input type="number" placeholder="#order_id" />
-          <button>{confirmText}</button>
-        </p>
-        <p>
-          Change status: <input type="number" placeholder="#order_id" />
-          <input type="text" placeholder="#status_message" />
+        <p style={{ color: 'red' }}>
+          Change status:{' '}
+          <input disabled type="number" placeholder="#order_id" />
+          <input disabled type="text" placeholder="#status_message" />
           <button>{confirmText}</button>
         </p>
       </div>
