@@ -1,19 +1,52 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { PureComponent } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 import './App.css';
+import { CustomersContainer } from './containers/CustomersContainer';
+import { OrdersContainer } from './containers/OrdersContainer';
+import { StorageContainer } from './containers/StorageContainer';
 
-class App extends Component {
+class App extends PureComponent {
+  componentDidMount() {
+    this.sqlConnect();
+    this.serviceBusConnect();
+  }
+  sqlConnect = () => {
+    fetch('/sql/connect');
+  };
+
+  serviceBusConnect = () => {
+    fetch('/servicebus/connect');
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div>
+          <h1>My Library app</h1>
+          <ul>
+            <li>
+              <Link to="/customers">Customers</Link>
+            </li>
+            <li>
+              <Link to="/orders">Orders</Link>
+            </li>
+            <li>
+              <Link to="/storage">Storage</Link>
+            </li>
+          </ul>
+
+          <hr />
+          <Redirect from="/" to="customers" />
+          <Route path="/customers" component={CustomersContainer} />
+          <Route path="/orders" component={OrdersContainer} />
+          <Route path="/storage" component={StorageContainer} />
+        </div>
+      </Router>
     );
   }
 }
