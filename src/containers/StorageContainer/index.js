@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { messages } from '../../constants/messages';
 
 export class StorageContainer extends Component {
-  state = { storage: null };
+  state = { storage: null, storage_id: null };
   componentDidMount() {
     fetch('/sql/storage/storage/list')
       .then(res => res.json())
       .then(res => this.setState({ storage: res.recordset }));
   }
   render() {
-    const { storage } = this.state;
+    const { storage, storage_id } = this.state;
     const { confirmText } = messages;
     return (
       <div>
         <h2>Storage</h2>
+        {storage_id && <p>storage_id: {storage_id}</p>}
         <table>
           <tbody>
             <tr>
@@ -35,10 +36,15 @@ export class StorageContainer extends Component {
               })}
           </tbody>
         </table>
-        <p>
-          Remove: <input type="number" placeholder="#storage_id" />
+        <p style={{ color: 'green' }}>
+          Remove:{' '}
+          <input
+            onChange={e => this.setState({ storage_id: e.target.value })}
+            type="number"
+            placeholder="#storage_id"
+          />
+          <button>{confirmText}</button>
         </p>
-        <button>{confirmText}</button>
       </div>
     );
   }

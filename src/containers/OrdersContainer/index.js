@@ -6,7 +6,11 @@ import { createStructuredSelector } from 'reselect';
 import { messages } from '../../constants/messages';
 
 export class OrdersContainer extends PureComponent {
-  state = { orders: null };
+  state = {
+    orders: null,
+    order_id: null,
+    status_id: null
+  };
   componentDidMount() {
     //this.props.getOrdersList();
     fetch('/sql/orders/orders/list')
@@ -15,11 +19,13 @@ export class OrdersContainer extends PureComponent {
   }
   render() {
     //const { orders } = this.props;
-    const { orders } = this.state;
+    const { orders, order_id, status_id } = this.state;
     const { confirmText } = messages;
     return (
       <div>
         <h2>Orders</h2>
+        {order_id && <p>order_id: {order_id}</p>}
+        {status_id && <p>status_id: {status_id}</p>}
         <table>
           <tbody>
             <tr>
@@ -41,9 +47,18 @@ export class OrdersContainer extends PureComponent {
               })}
           </tbody>
         </table>
-        <p>
-          Change status: <input type="number" placeholder="#order_id" />
-          <input type="text" placeholder="#status_message" />
+        <p style={{ color: 'green' }}>
+          Change status:{' '}
+          <input
+            onChange={e => this.setState({ order_id: e.target.value })}
+            type="number"
+            placeholder="#order_id"
+          />
+          <input
+            onChange={e => this.setState({ status_id: e.target.value })}
+            type="text"
+            placeholder="#status_id"
+          />
           <button>{confirmText}</button>
         </p>
       </div>

@@ -19,8 +19,8 @@ export class CustomersContainer extends Component {
     return (
       <div>
         <h2>Customers</h2>
-        <p>customer_id: {customer_id}</p>
-        <p>storage_id: {storage_id}</p>
+        {customer_id && <p>customer_id: {customer_id}</p>}
+        {storage_id && <p>storage_id: {storage_id}</p>}
         <table>
           <tbody>
             <tr>
@@ -57,6 +57,7 @@ export class CustomersContainer extends Component {
             type="number"
             placeholder="#storage_id"
           />
+          <button>{confirmText}</button>
         </p>
         <p style={{ color: 'red' }}>
           Check order status:{' '}
