@@ -1,13 +1,13 @@
 # The Library App
 
-This project demonstrate Service Bus and Publish / Subscribe pattern usage.
+Distributed system to simulate organization activity with Service Bus and Pub/Sub pattern usage.
 
 ## Architecture
 
 - Back End: `Node.js`, `Express.js`
 - Front End: `React`, `React-Router`, `Redux`, `Redux-Saga`,
 - Database: `MS Server` (MSSQL)
-- Service Bus with Sub/Pub pattern (`Azure`)
+- Service Bus with Pub/Sub pattern (`Azure`)
 - `Webpack` as module builder for JavaScript \*
 - Containerized app using `Docker` \*
 
