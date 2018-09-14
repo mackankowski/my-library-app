@@ -11,11 +11,16 @@ export class OrdersContainer extends PureComponent {
   };
   componentDidMount() {
     //this.props.getOrdersList();
+
     fetch('/sql/orders/orders/list')
       .then(res => res.json())
       .then(res => this.setState({ orders: res.recordset }));
+
+    fetch('/bus/create/sub/ordersInProgress');
   }
-  changeStatusEvent() {}
+  checkSubscriptionsEvent() {
+    fetch('/bus/receive/ordersInProgress');
+  }
   render() {
     //const { orders } = this.props;
     const { orders, order_id, status_id } = this.state;
@@ -59,6 +64,11 @@ export class OrdersContainer extends PureComponent {
             placeholder="#status_id"
           />
           <button onClick={this.changeStatusEvent}>{confirmText}</button>
+        </p>
+        <p>
+          <button onClick={this.checkSubscriptionsEvent}>
+            Check received orders!
+          </button>
         </p>
       </div>
     );

@@ -2,25 +2,42 @@ import React, { Component } from 'react';
 import { messages } from '../../constants/messages';
 
 export class CustomersContainer extends Component {
-  state = {
-    customers: null,
-    customer_id: null,
-    storage_id: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: null,
+      customer_id: null,
+      storage_id: null,
+      createOrderMessage: null
+    };
+  }
   componentDidMount() {
     fetch('/sql/orders/orders/list')
       .then(res => res.json())
       .then(res => this.setState({ customers: res.recordset }));
   }
-  createOrderEvent() {}
+  createOrderEvent = () => {
+    if (this.state.customer_id && this.state.storage_id)
+      fetch(
+        `/bus/create/pub/ordersInProgress/${this.state.customer_id},${
+          this.state.storage_id
+        }`
+      );
+  };
   render() {
-    const { customers, customer_id, storage_id } = this.state;
+    const {
+      customers,
+      customer_id,
+      storage_id,
+      createOrderMessage
+    } = this.state;
     const { confirmText } = messages;
     return (
       <div>
         <h2>Customers</h2>
         {customer_id && <p>customer_id: {customer_id}</p>}
         {storage_id && <p>storage_id: {storage_id}</p>}
+        {createOrderMessage && <p>createOrderMessage: {createOrderMessage}</p>}
         <table>
           <tbody>
             <tr>
