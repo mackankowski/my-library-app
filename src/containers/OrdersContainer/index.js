@@ -1,19 +1,21 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+
+import { createStructuredSelector } from 'reselect';
+
 import { messages } from '../../constants/messages';
 
 export class OrdersContainer extends PureComponent {
-  state = { res: null };
+  state = { orders: null };
   componentDidMount() {
-    this.callApi('/sql/orders/orders/list').then(res =>
-      this.setState({ res: res.recordset })
-    );
+    //this.props.getOrdersList();
+    fetch('/sql/orders/orders/list')
+      .then(res => res.json())
+      .then(res => this.setState({ orders: res.recordset }));
   }
-  callApi = async path => {
-    const res = await fetch(path);
-    return await res.json();
-  };
   render() {
-    const { res } = this.state;
+    //const { orders } = this.props;
+    const { orders } = this.state;
     const { confirmText } = messages;
     return (
       <div>
@@ -26,8 +28,8 @@ export class OrdersContainer extends PureComponent {
               <th>status_message</th>
               <th>storages_id</th>
             </tr>
-            {res &&
-              res.map(i => {
+            {orders &&
+              orders.map(i => {
                 return (
                   <tr key={i.order_id}>
                     <td>{i.order_id}</td>
@@ -48,3 +50,16 @@ export class OrdersContainer extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = createStructuredSelector({
+  //orders: makeSelectOrders()
+});
+
+const mapDispatchToProps = {
+  //getOrdersList
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(OrdersContainer);
