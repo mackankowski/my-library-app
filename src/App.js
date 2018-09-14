@@ -16,11 +16,11 @@ class App extends PureComponent {
     this.serviceBusConnect();
   }
   sqlConnect = () => {
-    fetch('/azure/sql/connect');
+    fetch('/sql/connect');
   };
 
   serviceBusConnect = () => {
-    fetch('/azure/servicebus/connect');
+    fetch('/servicebus/connect');
   };
 
   render() {

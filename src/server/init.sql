@@ -13,22 +13,19 @@ USE Customers_DB;
 CREATE TABLE Customers
 (
   customer_id INTEGER PRIMARY KEY NOT NULL,
-  first_name TEXT,
-  surname TEXT,
+  first_name TEXT NOT NULL,
+  surname TEXT NOT NULL,
 );
-CREATE TABLE Orders
-(
-  order_id INTEGER PRIMARY KEY NOT NULL,
-  customer_id INTEGER,
-);
+
 CREATE DATABASE Orders_DB;
 GO
 USE Orders_DB;
 CREATE TABLE Orders
 (
   order_id INTEGER PRIMARY KEY NOT NULL,
-  status_id INTEGER,
-  storage_ids TEXT,
+  status_id INTEGER NOT NULL,
+  customer_id INTEGER NOT NULL,
+  storage_ids TEXT NOT NULL,
 );
 CREATE TABLE Statuses
 (
@@ -41,24 +38,18 @@ USE Storage_DB;
 CREATE TABLE Storage
 (
   storage_id INTEGER PRIMARY KEY NOT NULL,
-  author_id INTEGER
+  title TEXT NOT NULL,
+  author_id INTEGER NOT NULL,
 );
 CREATE TABLE Author
 (
   author_id INTEGER PRIMARY KEY NOT NULL,
-  first_name TEXT,
-  surname TEXT,
+  first_name TEXT NOT NULL,
+  surname TEXT NOT NULL,
 );
 
 /* SET FOREIGN KEYS */
 
-USE Customers_DB;
-ALTER TABLE Orders     
-ADD CONSTRAINT FK_Customer_Id FOREIGN KEY (customer_id)     
-    REFERENCES Customers (customer_id)     
-    ON DELETE CASCADE    
-    ON UPDATE CASCADE    
-;
 USE Orders_DB;
 ALTER TABLE Orders     
 ADD CONSTRAINT FK_Status_Id FOREIGN KEY (status_id)     
@@ -99,43 +90,6 @@ INSERT INTO Customers
 VALUES
   (5, 'Ania', 'Nowak');
 
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (1, 1);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (2, 1);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (3, 2);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (4, 2);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (5, 3);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (6, 3);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (7, 4);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (8, 4);
-INSERT INTO Orders
-  (order_id, customer_id)
-VALUES
-  (9, 5);
-
 USE Orders_DB;
 
 INSERT INTO Statuses
@@ -156,25 +110,25 @@ VALUES
   (4, 'Not available');
 
 INSERT INTO Orders
-  (order_id, status_id, storage_ids)
+  (order_id, status_id, customer_id, storage_ids)
 VALUES
-  (1, 2, '1,2' )
+  (1, 2, 5, '1,2' )
 INSERT INTO Orders
-  (order_id, status_id, storage_ids)
+  (order_id, status_id, customer_id, storage_ids)
 VALUES
-  (2, 2, '3,4' )
+  (2, 2, 4, '3,4' )
 INSERT INTO Orders
-  (order_id, status_id, storage_ids)
+  (order_id, status_id, customer_id, storage_ids)
 VALUES
-  (3, 3, '5,6' )
+  (3, 3, 3, '5,6' )
 INSERT INTO Orders
-  (order_id, status_id, storage_ids)
+  (order_id, status_id, customer_id, storage_ids)
 VALUES
-  (4, 3, '7,8' )
+  (4, 3, 2, '7,8' )
 INSERT INTO Orders
-  (order_id, status_id, storage_ids)
+  (order_id, status_id, customer_id, storage_ids)
 VALUES
-  (5, 4, '9' )
+  (5, 4, 1, '9' )
 
 USE Storage_DB;
 
@@ -201,38 +155,38 @@ VALUES
 
 
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (1, 1);
+  (1, 'Harry Potter', 1);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (2, 1);
+  (2, 'Hobbit', 1);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (3, 2);
+  (3, 'Ogniem i mieczem', 2);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (4, 2);
+  (4, 'Pan Kleks', 2);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (5, 3);
+  (5, 'Pan Samochodzik', 3);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (6, 3);
+  (6, 'Opowiesc wigilijna', 3);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (7, 4);
+  (7, 'Zagadki XX wieku', 4);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (8, 4);
+  (8, 'Przewodnik po Kaszubach', 4);
 INSERT INTO Storage
-  (storage_id, author_id)
+  (storage_id, title, author_id)
 VALUES
-  (9, 5);
+  (9, 'Czterej muszkieterowie', 5);
