@@ -22,18 +22,14 @@ const store = createStore(reducers, applyMiddleware(sagaMiddleware));
 sagas.forEach(sagaMiddleware.run);
 
 class App extends PureComponent {
+  state = {
+    sql: null,
+    bus: null
+  };
   componentDidMount() {
-    this.sqlConnect();
-    this.serviceBusConnect();
-  }
-  sqlConnect = () => {
     fetch('/sql/connect');
-  };
-
-  serviceBusConnect = () => {
-    fetch('/servicebus/connect');
-  };
-
+    fetch('/bus/connect');
+  }
   render() {
     return (
       <Provider store={store}>
@@ -51,7 +47,6 @@ class App extends PureComponent {
                 <Link to="/storage">Storage</Link>
               </li>
             </ul>
-
             <hr />
             <Redirect from="/" to="customers" />
             <Route path="/customers" component={CustomersContainer} />

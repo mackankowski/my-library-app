@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-
 import { createStructuredSelector } from 'reselect';
-
 import { messages } from '../../constants/messages';
 
 export class OrdersContainer extends PureComponent {
@@ -17,6 +15,7 @@ export class OrdersContainer extends PureComponent {
       .then(res => res.json())
       .then(res => this.setState({ orders: res.recordset }));
   }
+  changeStatusEvent() {}
   render() {
     //const { orders } = this.props;
     const { orders, order_id, status_id } = this.state;
@@ -59,7 +58,7 @@ export class OrdersContainer extends PureComponent {
             type="text"
             placeholder="#status_id"
           />
-          <button>{confirmText}</button>
+          <button onClick={this.changeStatusEvent}>{confirmText}</button>
         </p>
       </div>
     );

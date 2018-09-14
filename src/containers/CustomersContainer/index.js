@@ -12,7 +12,7 @@ export class CustomersContainer extends Component {
       .then(res => res.json())
       .then(res => this.setState({ customers: res.recordset }));
   }
-  createNewOrderEvent() {}
+  createOrderEvent() {}
   render() {
     const { customers, customer_id, storage_id } = this.state;
     const { confirmText } = messages;
@@ -57,7 +57,7 @@ export class CustomersContainer extends Component {
             type="number"
             placeholder="#storage_id"
           />
-          <button>{confirmText}</button>
+          <button onClick={this.createOrderEvent}>{confirmText}</button>
         </p>
         <p style={{ color: 'red' }}>
           Check order status:{' '}

@@ -8,6 +8,7 @@ export class StorageContainer extends Component {
       .then(res => res.json())
       .then(res => this.setState({ storage: res.recordset }));
   }
+  removeStorageEvent() {}
   render() {
     const { storage, storage_id } = this.state;
     const { confirmText } = messages;
@@ -43,7 +44,7 @@ export class StorageContainer extends Component {
             type="number"
             placeholder="#storage_id"
           />
-          <button>{confirmText}</button>
+          <button onClick={this.removeStorageEvent}>{confirmText}</button>
         </p>
       </div>
     );
