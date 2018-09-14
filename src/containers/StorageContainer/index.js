@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import { messages } from '../../constants/messages';
 
 export class StorageContainer extends Component {
-  state = { res: null };
+  state = { storage: null, storage_id: null };
   componentDidMount() {
-    this.callApi('/sql/storage/storage/list').then(res =>
-      this.setState({ res: res.recordset })
-    );
+    fetch('/sql/storage/storage/list')
+      .then(res => res.json())
+      .then(res => this.setState({ storage: res.recordset }));
   }
-  callApi = async path => {
-    const res = await fetch(path);
-    return await res.json();
-  };
+  removeStorageEvent() {}
   render() {
-    const { res } = this.state;
+    const { storage, storage_id } = this.state;
     const { confirmText } = messages;
     return (
       <div>
         <h2>Storage</h2>
+        {storage_id && <p>storage_id: {storage_id}</p>}
         <table>
           <tbody>
             <tr>
@@ -26,8 +24,8 @@ export class StorageContainer extends Component {
               <th>author_first_name</th>
               <th>author_surname</th>
             </tr>
-            {res &&
-              res.map(i => {
+            {storage &&
+              storage.map(i => {
                 return (
                   <tr key={i.storage_id}>
                     <td>{i.storage_id}</td>
@@ -39,10 +37,15 @@ export class StorageContainer extends Component {
               })}
           </tbody>
         </table>
-        <p>
-          Remove: <input type="number" placeholder="#storage_id" />
+        <p style={{ color: 'green' }}>
+          Remove:{' '}
+          <input
+            onChange={e => this.setState({ storage_id: e.target.value })}
+            type="number"
+            placeholder="#storage_id"
+          />
+          <button onClick={this.removeStorageEvent}>{confirmText}</button>
         </p>
-        <button>{confirmText}</button>
       </div>
     );
   }
